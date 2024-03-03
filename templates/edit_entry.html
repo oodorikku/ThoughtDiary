@@ -3,31 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Entry</title>
-    <!-- Add Bootstrap CDN link for styling -->
+    <title>Emotion Diary</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-5">
-        <h2>Edit Entry</h2>
-        <form method="post" action="{{ url_for('edit_entry', entry_id=entry.id) }}">
+        <h2>Emotion Diary</h2>
+        <form method="post" action="{{ url_for('add_entry') }}">
             <div class="form-group">
                 <label for="date">Select a date:</label>
-                <input type="date" name="date" value="{{ entry.date }}" required>
+                <input type="date" name="date" required>
             </div>
             <div class="form-group">
                 <label for="title">Title:</label>
-                <input type="text" name="title" value="{{ entry.title }}" required>
+                <input type="text" name="title" required>
             </div>
             <div class="form-group">
                 <label for="content">Content:</label>
-                <textarea name="content" rows="4" required>{{ entry.content }}</textarea>
+                <textarea name="content" rows="4" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary" onclick="startSpeechToText()">Speech to Text</button>
         </form>
+
+        <div class="mt-5">
+            <h4>Diary Entries</h4>
+            <ul class="list-group">
+                {% for entry in user_entries %}
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between">
+                            <a data-toggle="collapse" href="#collapse{{ entry.id }}" role="button" aria-expanded="false" aria-controls="collapse{{ entry.id }}">
+                                {{ entry.date }} - {{ entry.title }}
+                            </a>
+                            <div class="btn-group" role="group">
+                                <form method="post" action="{{ url_for('delete_entry', id=entry.id) }}" style="display: inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                                <a href="{{ url_for('edit_entry', entry_id=entry.id) }}" class="btn btn-primary btn-sm">Edit</a>
+                            </div>
+                        </div>
+                        <div class="collapse" id="collapse{{ entry.id }}">
+                            <div class="card card-body">
+                                <p><strong>Emotion:</strong> {{ entry.emotion }}</p>
+                                <p><strong>Content:</strong> {{ entry.content }}</p>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <script>
+            function startSpeechToText() {
+                document.querySelector('textarea[name="content"]').disabled = true;
+                fetch('/speech_to_text', {
+                    method: 'POST',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert("Error: " + data.error);
+                    } else {
+                        document.querySelector('textarea[name="content"]').value = data.content;
+                    }
+
+                    document.querySelector('textarea[name="content"]').disabled = false;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+
+                    document.querySelector('textarea[name="content"]').disabled = false;
+
+                    alert('Speech recognition failed. Please try again.');
+                });
+            }
+        </script>
     </div>
 
-    <!-- Add Bootstrap and jQuery CDN scripts for proper functionality -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from transformers import RobertaTokenizerFast, TFRobertaForSequenceClassification, pipeline
 import speech_recognition as sr
 
@@ -66,17 +66,14 @@ def speech_to_text():
             audio = recognizer.listen(source, timeout=5)
 
         content = recognizer.recognize_google(audio)
-        return content
+        return jsonify({"content": content})
     except sr.UnknownValueError:
         print("Speech recognition could not understand audio")
-        recognizer = sr.Recognizer()
-        return "Speech recognition could not understand audio"
+        return jsonify({"error": "Speech recognition could not understand audio"})
     except sr.WaitTimeoutError:
-        recognizer = sr.Recognizer()
-        return "Speech recognition timed out while waiting for phrase to start"
+        return jsonify({"error": "Speech recognition timed out while waiting for phrase to start"})
     except sr.RequestError as e:
-        recognizer = sr.Recognizer()
-        return f"Could not request results from Google Speech Recognition service; {e}"
+        return jsonify({"error": f"Could not request results from Google Speech Recognition service; {e}"})
 
 if __name__ == '__main__':
     app.run(debug=True)
