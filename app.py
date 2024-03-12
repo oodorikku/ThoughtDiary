@@ -1,8 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from transformers import RobertaTokenizerFast, TFRobertaForSequenceClassification, pipeline
+from flask import flash
+from datetime import datetime
 import speech_recognition as sr
+import secrets
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key_here'
 
 tokenizer = RobertaTokenizerFast.from_pretrained("arpanghoshal/EmoRoBERTa")
 model = TFRobertaForSequenceClassification.from_pretrained("arpanghoshal/EmoRoBERTa")
@@ -21,17 +25,21 @@ def add_entry():
     title = request.form['title']
     content = request.form['content']
 
-    entry_emotion = emotion(content)[0]['label']
-    
-    entry = {
-        'id': len(user_entries) + 1,
-        'date': date,
-        'title': title,
-        'content': content,
-        'emotion': entry_emotion
-    }
+    existing_entry = next((entry for entry in user_entries if entry['date'] == date), None)
 
-    user_entries.append(entry)
+    if existing_entry:
+        flash(f"You have already added a diary entry for {datetime.strptime(date, '%Y-%m-%d').strftime('%B %d, %Y')}.")
+    else:
+        entry_emotion = emotion(content)[0]['label']
+        entry = {
+            'id': len(user_entries) + 1,
+            'date': date,
+            'title': title,
+            'content': content,
+            'emotion': entry_emotion
+        }
+        user_entries.append(entry)
+
     return redirect(url_for('index'))
 
 @app.route('/delete_entry/<int:id>', methods=['POST'])

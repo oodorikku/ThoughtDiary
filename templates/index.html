@@ -10,6 +10,15 @@
 <body>
     <div class="container mt-5">
         <h2>Emotion Diary</h2>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
         <form method="post" action="{{ url_for('add_entry') }}">
             <div class="form-group">
                 <label for="date">Select a date:</label>
@@ -59,22 +68,28 @@
             function startSpeechToText() {
                 // Disable the textarea while speech recognition is in progress
                 document.querySelector('textarea[name="content"]').disabled = true;
-
+        
                 // Send a POST request to the /speech_to_text route
                 fetch('/speech_to_text', {
                     method: 'POST',
                 })
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(data => {
-                    // Set the recognized speech as the content in the textarea
-                    document.querySelector('textarea[name="content"]').value = data;
-
+                    if (data.error) {
+                        // If there's an error, display a pop-up message
+                        alert("Speech recognition error: " + data.error);
+                    } else {
+                        // Set the recognized speech as the content in the textarea
+                        document.querySelector('textarea[name="content"]').value = data.content;
+                    }
+        
                     // Re-enable the textarea
                     document.querySelector('textarea[name="content"]').disabled = false;
                 })
                 .catch(error => console.error('Error:', error));
             }
         </script>
+        
     </div>
 
     <!-- Add Bootstrap and jQuery CDN scripts for proper functionality -->
