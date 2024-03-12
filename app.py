@@ -15,6 +15,7 @@ emotion = pipeline('sentiment-analysis', model='arpanghoshal/EmoRoBERTa')
 
 user_entries = []
 
+
 @app.route('/')
 def index():
     return render_template('index.html', user_entries=user_entries)

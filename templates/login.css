@@ -1,0 +1,221 @@
+.desktop-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+}
+.desktop-desktop {
+  width: 100%;
+  height: 1024px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  flex-shrink: 0;
+  justify-content: center;
+}
+.desktop-left-side {
+  gap: 67px;
+  flex: 1;
+  width: auto;
+  height: 100%;
+  display: flex;
+  padding: 129px 101px;
+  overflow: hidden;
+  align-items: center;
+  flex-shrink: 0;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 1);
+}
+.desktop-logo-svg {
+  width: 409px;
+  height: 124px;
+}
+.desktop-form {
+  gap: 34px;
+  width: 503px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  flex-shrink: 0;
+  justify-content: flex-end;
+}
+.desktop-inputfields {
+  gap: 13px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.desktop-username-form {
+  gap: 10px;
+  width: 503px;
+  height: 53px;
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  flex-shrink: 0;
+  justify-content: space-between;
+}
+.desktop-text {
+  color: rgba(59, 112, 127, 1);
+  width: 72px;
+  height: auto;
+  font-size: 12px;
+  font-style: Bold;
+  text-align: center;
+  font-family: Rounded Mplus 1c Bold;
+  font-weight: 700;
+  line-height: normal;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.desktop-inputusername {
+  width: 503px;
+  height: 33px;
+  display: flex;
+  z-index: 1;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-color: rgba(112, 174, 193, 1);
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+}
+.desktop-password-form {
+  width: 503px;
+  height: 52.913848876953125px;
+  display: flex;
+  overflow: hidden;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  flex-shrink: 0;
+  justify-content: space-between;
+}
+.desktop-text2 {
+  color: rgba(59, 112, 127, 1);
+  width: 73px;
+  height: auto;
+  font-size: 12px;
+  font-style: Bold;
+  text-align: center;
+  font-family: Rounded Mplus 1c Bold;
+  font-weight: 700;
+  line-height: normal;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.desktop-inputpassword {
+  width: 503px;
+  height: 33px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-color: rgba(112, 174, 193, 1);
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+}
+.desktop-submits {
+  gap: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.desktop-signup-button {
+  width: 73px;
+  height: 33px;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 15px;
+  justify-content: center;
+  background-color: rgba(145, 209, 229, 1);
+}
+.desktop-text4 {
+  color: rgba(255, 255, 255, 1);
+  height: auto;
+  font-size: 12px;
+  font-style: Bold;
+  text-align: center;
+  font-family: Rounded Mplus 1c Bold;
+  font-weight: 700;
+  line-height: normal;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.desktop-login-button {
+  width: 82px;
+  height: 33px;
+  display: flex;
+  padding: 8px 0;
+  overflow: hidden;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 21px;
+  justify-content: center;
+  background-color: rgba(70, 138, 157, 1);
+}
+.desktop-text6 {
+  color: rgba(255, 255, 255, 1);
+  height: auto;
+  font-size: 12px;
+  font-style: Bold;
+  text-align: center;
+  font-family: Rounded Mplus 1c Bold;
+  font-weight: 700;
+  line-height: normal;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.desktop-right-side {
+  gap: 10px;
+  flex: 1;
+  width: auto;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgba(171, 219, 235, 1);
+}
+.desktop-designs-svg {
+  width: 100%;
+  height: 100%;
+}
+@media(max-width: 1600px) {
+  .desktop-container {
+    align-items: flex-end;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .desktop-desktop {
+    top: 0px;
+    flex: 1;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    position: absolute;
+    align-self: center;
+    justify-content: center;
+  }
+  .desktop-left-side {
+    flex: 0 0 auto;
+    width: auto;
+    height: 100%;
+  }
+  .desktop-right-side {
+    width: auto;
+    height: 100%;
+  }
+}
