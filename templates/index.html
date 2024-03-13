@@ -38,6 +38,12 @@
         </form>
 
         <div class="mt-5">
+           
+            <ul class="list-group">
+                {%for emotion in emotion_patterns %}
+                <li class="list-group-item"> NOTICE: We have noticed this emotion consistently from your diary entries: {{emotion}}</li>
+                {% endfor %}
+            </ul>
             <h4>Diary Entries</h4>
             <ul class="list-group">
                 {% for entry in user_entries %}

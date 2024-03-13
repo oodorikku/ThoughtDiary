@@ -14,18 +14,40 @@ model = TFRobertaForSequenceClassification.from_pretrained("arpanghoshal/EmoRoBE
 emotion = pipeline('sentiment-analysis', model='arpanghoshal/EmoRoBERTa')
 
 user_entries = []
+emotion_patterns = []
+
+def check_for_emotion_patterns():
+    if user_entries:
+        previous_emotion = ""
+        print('=============')
+        print(user_entries)
+    for entry in user_entries:
+        current_emotion = entry['emotion']
+            
+        # Check if the current entry has the same emotion as the previous one
+        print("Current" + current_emotion)
+        print("Previous" + previous_emotion)
+        if current_emotion == previous_emotion:
+            consecutive_days += 1
+        else:
+            consecutive_days = 1  # Reset consecutive days count if emotions differ
+                    
+        if consecutive_days == 3 and current_emotion not in emotion_patterns:
+            emotion_patterns.append(current_emotion)
+                
+        previous_emotion = current_emotion
 
 
 @app.route('/')
 def index():
-    return render_template('index.html', user_entries=user_entries)
+    return render_template('index.html', user_entries=user_entries, emotion_patterns = emotion_patterns)
 
 @app.route('/add_entry', methods=['POST'])
 def add_entry():
+    global user_entries
     date = request.form['date']
     title = request.form['title']
     content = request.form['content']
-
     existing_entry = next((entry for entry in user_entries if entry['date'] == date), None)
 
     if existing_entry:
@@ -41,6 +63,10 @@ def add_entry():
         }
         user_entries.append(entry)
 
+        #To sort the entries by date
+        user_entries = sorted(user_entries, key=lambda x: x['date'], reverse = False)
+        check_for_emotion_patterns()
+
     return redirect(url_for('index'))
 
 @app.route('/delete_entry/<int:id>', methods=['POST'])
@@ -54,6 +80,7 @@ def edit_entry(entry_id):
     entry_to_edit = next((entry for entry in user_entries if entry['id'] == entry_id), None)
     return render_template('edit_entry.html', entry=entry_to_edit)
 
+#only updates one entry
 @app.route('/update_entry/<int:entry_id>', methods=['POST'])
 def update_entry(entry_id):
     entry_to_update = next((entry for entry in user_entries if entry['id'] == entry_id), None)
