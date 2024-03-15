@@ -2,3 +2,4 @@ Flask==3.0.2
 SpeechRecognition==3.10.1
 transformers==4.38.1
 PyAudio==0.2.14
+TensorFlow==2.15.0
