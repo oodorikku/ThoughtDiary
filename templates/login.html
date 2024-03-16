@@ -64,7 +64,7 @@
               src="{{ url_for('static', filename='external/logosvg1113-9xde.svg') }}"
               class="desktop-logo-svg"
             />
-            <form class="desktop-form" action="{{ url_for('') }}">
+            <form class="desktop-form" method="post" action="{{ url_for('login_to_index') }}">
               <div class="desktop-inputfields">
                 <div class="desktop-username-form">
                   <span class="desktop-text"><span>Username</span></span>

@@ -57,10 +57,12 @@
         </form>
 
         <div class="mt-5">
-           
+            {% if weekly_emotion != "" %}
+                <p>You are mostly {{weekly_emotion}} lately.</p>
+            {% endif %}
             <ul class="list-group">
                 {%for emotion in emotion_patterns %}
-                <li class="list-group-item"> NOTICE: We have noticed this emotion consistently from your diary entries: {{emotion}}</li>
+                <li class="list-group-item"> You have been feeling {{emotion}} in your 3 recent entries.</li>
                 {% endfor %}
             </ul>
             <h4>Diary Entries</h4>

@@ -11,36 +11,66 @@ app.secret_key = 'your_secret_key_here'
 tokenizer = RobertaTokenizerFast.from_pretrained("arpanghoshal/EmoRoBERTa")
 model = TFRobertaForSequenceClassification.from_pretrained("arpanghoshal/EmoRoBERTa")
 
+positive_emotion = ["joy", "admiration", "amusement", "caring", "excitement", "gratitude", "love", "relief", "surprise", "curiosity"]
+negative_emotion = ["anger", "fear", "disgust", "sadness", "nervousness", "pride", "grief", "annoyance", "confusion", "desire", "disappointment"]
 emotion = pipeline('sentiment-analysis', model='arpanghoshal/EmoRoBERTa')
 
 user_entries = []
+#if user feels a specific emotion for 3 consecutive days, it will be stored here
 emotion_patterns = []
+#On user's 7 recent diary entries, we check if user feels more negative or positive emotions, and we put it here.
+weekly_emotion = ""
 
 def check_for_emotion_patterns():
+    negative_counter = 0
+    positive_counter = 0
+    consecutive_days = 0
+    global weekly_emotion
+    i = 1
     if user_entries:
-        previous_emotion = ""
+        previous_emotion = "neutral"
         print('=============')
         print(user_entries)
-    for entry in user_entries:
-        current_emotion = entry['emotion']
+        for entry in user_entries:
+            current_emotion = entry['emotion']
+            if current_emotion in positive_emotion:
+                positive_counter  += 1
+            elif current_emotion in negative_emotion:
+                negative_counter += 1
+            # Check if the current entry has the same emotion as the previous one
+            print("Current" + current_emotion)
+            print("Previous" + previous_emotion)
+            if current_emotion == previous_emotion:
+                consecutive_days += 1
+            else:
+                consecutive_days = 1  # Reset consecutive days count if emotions differ
+            if consecutive_days == 3 and current_emotion not in emotion_patterns:
+                emotion_patterns.append(current_emotion)
             
-        # Check if the current entry has the same emotion as the previous one
-        print("Current" + current_emotion)
-        print("Previous" + previous_emotion)
-        if current_emotion == previous_emotion:
-            consecutive_days += 1
-        else:
-            consecutive_days = 1  # Reset consecutive days count if emotions differ
-                    
-        if consecutive_days == 3 and current_emotion not in emotion_patterns:
-            emotion_patterns.append(current_emotion)
+            if i == 5:
+                if positive_counter >= 3:
+                    weekly_emotion = "positive"
+                elif negative_counter >= 3:
+                    weekly_emotion = "negative"
                 
-        previous_emotion = current_emotion
+                positive_counter = 0
+                negative_counter = 0
+
+            previous_emotion = current_emotion
+            i += 1
 
 
 @app.route('/')
+def login():
+    return render_template('login.html')
+
+@app.route('/login_to_index', methods=['POST'])
+def login_to_index():
+    return redirect(url_for('index'))
+
+@app.route('/main')
 def index():
-    return render_template('index.html', user_entries=user_entries, emotion_patterns = emotion_patterns)
+    return render_template('index.html', user_entries=user_entries, emotion_patterns = emotion_patterns, weekly_emotion = weekly_emotion)
 
 @app.route('/add_entry', methods=['POST'])
 def add_entry():
@@ -64,7 +94,8 @@ def add_entry():
         user_entries.append(entry)
 
         #To sort the entries by date
-        user_entries = sorted(user_entries, key=lambda x: x['date'], reverse = False)
+        user_entries = sorted(user_entries, key=lambda x: x['date'], reverse = True) 
+
         check_for_emotion_patterns()
 
     return redirect(url_for('index'))
@@ -99,7 +130,7 @@ def speech_to_text():
     try:
         with sr.Microphone() as source:
             print("Say something...")
-            audio = recognizer.listen(source, timeout=10, phrase_time_limit=600)
+            audio = recognizer.listen(source, timeout=5)
 
         content = recognizer.recognize_google(audio)
         return jsonify({"content": content})
