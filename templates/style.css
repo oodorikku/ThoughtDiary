@@ -86,9 +86,102 @@
 }
 .Content {
   font-size: 16px;
-  font-family: Inter;
+  font-family: Rounded Mplus 1c Bold;
   font-weight: 400;
   line-height: 1.15;
   text-transform: none;
   text-decoration: none;
+}
+.upper-section {
+  background-color: #92D2E5;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.desktop-logo-svg {
+  width: 300px; 
+  height: auto;
+  margin-left: 100px; 
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.user-logo-svg {
+  width: 50px; 
+  height: auto;
+  margin-right: 20px; 
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.user-text {
+  font-size: 25px;
+  font-family: Rounded Mplus 1c Bold;
+  font-weight: bold;
+  color: #1C3F4A;
+  margin-top: 15px;
+  margin-right: 100px;
+}
+
+textarea,
+input[type="text"],
+input[type="date"]{
+  display: flex;
+  z-index: 1;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-color: rgba(112, 174, 193, 1);
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+}
+
+textarea{
+  width: 503px;
+  height: 100px;
+}
+
+.form-button-group {
+  display: flex !important;
+  justify-content: flex-end;
+  float: right;
+  margin-right: 600px;
+}
+
+button.btn-primary[type="submit"]  {
+  width: 100px;
+  height: 33px;
+  display: flex;
+  padding: 8px 0;
+  overflow: hidden;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 21px;
+  justify-content: center;
+  background-color: #92D2E5;
+}
+button.btn-secondary[type="button"] {
+  width: 130px;
+  height: 33px;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 15px;
+  justify-content: center;
+  background-color: #478A9E;
+}
+
+.date-label,
+.title-label,
+.content-label {
+  font-size: 25px;
+  font-family: Rounded Mplus 1c Bold;
+  font_color: #1C3F4A;
 }

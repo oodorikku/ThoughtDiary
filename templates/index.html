@@ -3,14 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emotion Diary</title>
+    <title>ThoughtDiary</title>
     <!-- Add Bootstrap CDN link for styling -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-    <div class="container mt-5">
-        <h2>Emotion Diary</h2>
+    <div class="upper-section">
+        <header class="header">
+            <img
+            alt="logoSVG1113"
+            src="public/external/logosvg1113-9xde.svg"
+            class="desktop-logo-svg"
+          />
+          <div class="user-info">
+            <img
+            alt="user"
+            src="public/external/user.svg"
+            class="user-logo-svg"
+            />
+            <span class="user-text">User</span>
+          </div>
+        </header>
+    </div>
 
+    <div class="container mt-5">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <div class="alert alert-danger" role="alert">
@@ -21,20 +38,22 @@
 
         <form method="post" action="{{ url_for('add_entry') }}">
             <div class="form-group">
-                <label for="date">Select a date:</label>
+                <label for="date" class="date-label">Select a date:</label>
                 <input type="date" name="date" required>
             </div>
             <div class="form-group">
-                <label for="title">Title:</label>
+                <label for="title" class="title-label">Title:</label>
                 <input type="text" name="title" required>
             </div>
             <div class="form-group">
-                <label for="content">Content:</label>
+                <label for="content" class="content-label">Content:</label>
                 <textarea name="content" rows="4" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <!-- Add this button for speech-to-text -->
-            <button type="button" class="btn btn-secondary" onclick="startSpeechToText()">Speech to Text</button>
+            <div class="form-button-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <!-- Add this button for speech-to-text -->
+                <button type="button" class="btn btn-secondary" onclick="startSpeechToText()">Speech to Text</button>
+            </div>
         </form>
 
         <div class="mt-5">
