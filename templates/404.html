@@ -52,9 +52,9 @@
     />
   </head>
   <body>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
     <div>
-      <link href="./404.css" rel="stylesheet" />
+      <link href="{{ url_for('static', filename='404.css') }}" rel="stylesheet" />
 
       <div class="not-found-container">
         <h3>OOPS! PAGE NOT FOUND</h3>

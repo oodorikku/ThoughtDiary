@@ -52,19 +52,19 @@
     />
   </head>
   <body>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
     <div>
-      <link href="./login.css" rel="stylesheet" />
+      <link href="{{ url_for('static', filename='login.css') }}" rel="stylesheet" />
 
       <div class="desktop-container">
         <div class="desktop-desktop">
           <div class="desktop-left-side">
             <img
               alt="logoSVG1113"
-              src="public/external/logosvg1113-9xde.svg"
+              src="{{ url_for('static', filename='external/logosvg1113-9xde.svg') }}"
               class="desktop-logo-svg"
             />
-            <div class="desktop-form">
+            <form class="desktop-form" action="{{ url_for('') }}">
               <div class="desktop-inputfields">
                 <div class="desktop-username-form">
                   <span class="desktop-text"><span>Username</span></span>
@@ -91,12 +91,12 @@
                   <span class="desktop-text6"><span>Log-in</span></span>
                 </button>
               </div>
-            </div>
+            </form>
           </div>
           <div class="desktop-right-side">
             <img
               alt="designsSVG1182"
-              src="public/external/designssvg1182-mxjf.svg"
+              src="{{ url_for('static', filename='external/designssvg1182-mxjf.svg') }}"
               class="desktop-designs-svg"
             />
           </div>

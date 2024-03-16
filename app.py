@@ -99,7 +99,7 @@ def speech_to_text():
     try:
         with sr.Microphone() as source:
             print("Say something...")
-            audio = recognizer.listen(source, timeout=5)
+            audio = recognizer.listen(source, timeout=10, phrase_time_limit=600)
 
         content = recognizer.recognize_google(audio)
         return jsonify({"content": content})
