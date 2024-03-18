@@ -17,7 +17,7 @@ emotion = pipeline('sentiment-analysis', model='arpanghoshal/EmoRoBERTa')
 
 user_entries = []
 #if user feels a specific emotion for 3 consecutive days, it will be stored here
-emotion_patterns = []
+emotion_patterns = ""
 #On user's 7 recent diary entries, we check if user feels more negative or positive emotions, and we put it here.
 weekly_emotion = ""
 
@@ -26,6 +26,7 @@ def check_for_emotion_patterns():
     positive_counter = 0
     consecutive_days = 0
     global weekly_emotion
+    global emotion_patterns
     i = 1
     if user_entries:
         previous_emotion = "neutral"
@@ -44,8 +45,8 @@ def check_for_emotion_patterns():
                 consecutive_days += 1
             else:
                 consecutive_days = 1  # Reset consecutive days count if emotions differ
-            if consecutive_days == 3 and current_emotion not in emotion_patterns:
-                emotion_patterns.append(current_emotion)
+            if consecutive_days == 3:
+                emotion_patterns = current_emotion
             
             if i == 5:
                 if positive_counter >= 3:
