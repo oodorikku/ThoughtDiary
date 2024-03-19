@@ -19,13 +19,13 @@ user_entries = []
 #if user feels a specific emotion for 3 consecutive days, it will be stored here
 emotion_patterns = ""
 #On user's 7 recent diary entries, we check if user feels more negative or positive emotions, and we put it here.
-weekly_emotion = ""
+#weekly_emotion = ""
 
 def check_for_emotion_patterns():
     negative_counter = 0
     positive_counter = 0
-    consecutive_days = 0
-    global weekly_emotion
+    #consecutive_days = 0
+    #global weekly_emotion
     global emotion_patterns
     i = 1
     if user_entries:
@@ -41,18 +41,21 @@ def check_for_emotion_patterns():
             # Check if the current entry has the same emotion as the previous one
             print("Current" + current_emotion)
             print("Previous" + previous_emotion)
+            '''
             if current_emotion == previous_emotion:
                 consecutive_days += 1
             else:
                 consecutive_days = 1  # Reset consecutive days count if emotions differ
             if consecutive_days == 3:
                 emotion_patterns = current_emotion
-            
+            '''
             if i == 5:
                 if positive_counter >= 3:
-                    weekly_emotion = "positive"
+                    #weekly_emotion = "positive"
+                    emotion_patterns = "positive"
                 elif negative_counter >= 3:
-                    weekly_emotion = "negative"
+                    #weekly_emotion = "negative"
+                    emotion_patterns = "negative"
                 
                 positive_counter = 0
                 negative_counter = 0
@@ -72,8 +75,8 @@ def login_to_index():
 
 @app.route('/main')
 def index2():
-    #return render_template('index.html', user_entries=user_entries, emotion_patterns = emotion_patterns, weekly_emotion = weekly_emotion)
-    return render_template('index2.html', user_entries=user_entries)
+    return render_template('index.html', user_entries=user_entries, emotion_patterns = emotion_patterns)
+    #return render_template('index2.html', user_entries=user_entries)
 
 @app.route('/add_entry', methods=['POST'])
 def add_entry():
