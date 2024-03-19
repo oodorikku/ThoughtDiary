@@ -64,14 +64,16 @@ def check_for_emotion_patterns():
 @app.route('/')
 def login():
     return render_template('login.html')
+    #return render_template('index2.html')
 
 @app.route('/login_to_index', methods=['POST'])
 def login_to_index():
-    return redirect(url_for('index'))
+    return redirect(url_for('index2'))
 
 @app.route('/main')
-def index():
-    return render_template('index.html', user_entries=user_entries, emotion_patterns = emotion_patterns, weekly_emotion = weekly_emotion)
+def index2():
+    #return render_template('index.html', user_entries=user_entries, emotion_patterns = emotion_patterns, weekly_emotion = weekly_emotion)
+    return render_template('index2.html', user_entries=user_entries)
 
 @app.route('/add_entry', methods=['POST'])
 def add_entry():
@@ -99,13 +101,13 @@ def add_entry():
 
         check_for_emotion_patterns()
 
-    return redirect(url_for('index'))
+    return redirect(url_for('index2'))
 
 @app.route('/delete_entry/<int:id>', methods=['POST'])
 def delete_entry(id):
     global user_entries
     user_entries = [entry for entry in user_entries if entry['id'] != id]
-    return redirect(url_for('index'))
+    return redirect(url_for('index2'))
 
 @app.route('/edit_entry/<int:entry_id>')
 def edit_entry(entry_id):
@@ -122,7 +124,7 @@ def update_entry(entry_id):
         entry_to_update['content'] = request.form['content']
         entry_to_update['emotion'] = emotion(request.form['content'])[0]['label']
 
-    return redirect(url_for('index'))
+    return redirect(url_for('index2'))
 
 @app.route('/speech_to_text', methods=['POST'])
 def speech_to_text():

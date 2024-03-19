@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="english">
+  <head>
+    <title>ThoughtDiary</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <style data-tag="reset-style-sheet">
+      html {  line-height: 1.15;}body {  margin: 0;}* {  box-sizing: border-box;  border-width: 0;  border-style: solid;}p,li,ul,pre,div,h1,h2,h3,h4,h5,h6,figure,blockquote,figcaption {  margin: 0;  padding: 0;}button {  background-color: transparent;}button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}button,select {  text-transform: none;}button,[type="button"],[type="reset"],[type="submit"] {  -webkit-appearance: button;}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}a {  color: inherit;  text-decoration: inherit;}input {  padding: 2px 4px;}img {  display: block;}html { scroll-behavior: smooth  }
+    </style>
+    <style data-tag="default-style-sheet">
+      html {
+        font-family: Inter;
+        font-size: 16px;
+      }
+
+      body {
+        font-weight: 400;
+        font-style:normal;
+        text-decoration: none;
+        text-transform: none;
+        letter-spacing: normal;
+        line-height: 1.15;
+        color: var(--dl-color-gray-black);
+        background-color: var(--dl-color-gray-white);
+
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/animate.css@4.1.1/animate.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css"
+    />
+  </head>
+  <body>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}" />
+    <div>
+      <link href="{{ url_for('static', filename='index2.css') }}" rel="stylesheet" />
+
+      <div class="main-page-container">
+        <div class="main-page-main-page">
+          <div class="main-page-topbanner">
+            <img
+              src="{{ url_for('static', filename='external/logosvg1622-csx.svg') }}"
+              alt="logoSVG1622"
+              class="main-page-logo-svg"
+            />
+            <div class="main-page-usericon">
+              <img
+                src="{{ url_for('static', filename='external/image91315291812-burq-200h.png') }}"
+                alt="IMAGE91315291812"
+                class="main-page-image91315291"
+              />
+              <span class="main-page-text"><span>User</span></span>
+            </div>
+          </div>
+          <div class="main-page-pagecontent">
+            <div class="main-page-leftside">
+              <form method="post" action="{{ url_for('add_entry') }}" class="main-page-formaddentry">
+                <div class="main-page-createentry">
+                  <div class="main-page-entrytitle">
+                    <span class="main-page-text02"><span>Title</span></span>
+                    <input
+                      name="title"
+                      type="text"
+                      placeholder=""
+                      required="true"
+                      autofocus="true"
+                      class="main-page-title-input"
+                    />
+                  </div>
+                  <div class="main-page-entrydate">
+                    <span class="main-page-text04">
+                      <span>Select a Date</span>
+                    </span>
+                    <input
+                      name="date"
+                      type="date"
+                      placeholder=""
+                      required="true"
+                      class="main-page-input-date"
+                    />
+                  </div>
+                  <div class="main-page-entrycontent">
+                    <span class="main-page-text06"><span>Content</span></span>
+                    <textarea name="content" required="true" class="main-page-textareacontent"></textarea>
+                  </div>
+                </div>
+                <div class="main-page-conbtns">
+                  <button class="main-page-button-submit">
+                    <span class="main-page-text08"><span>Submit</span></span>
+                  </button>
+                  <button onclick="startSpeechToText()" class="main-page-buttonspeechtotext">
+                    <span class="main-page-text10">
+                      <span>Speech to Text</span>
+                    </span>
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div class="main-page-rightside">
+              <div class="main-page-diaryentries">
+                <span class="main-page-text12"><span>Diary Entries</span></span>
+                <div class="main-page-entriescontainer">
+                  {% for entry in user_entries %}
+                    <div class="main-page-entrycontainer">
+                      <span class="main-page-text14">
+                        <span>{{ entry.title }}</span>
+                      </span>
+                      <span class="main-page-text16">
+                        <span>{{ entry.date }}</span>
+                      </span>
+                      <div class="main-page-emotiondesc">
+                        <span class="main-page-text18">
+                          <span>Emotion:</span>
+                        </span>
+                        <span class="main-page-text20"><span>{{ entry.emotion }}</span></span>
+                      </div>
+                      <div class="main-page-contentdesc">
+                        <span class="main-page-text22">
+                          <span>Content:</span>
+                        </span>
+                        <div class="main-page-entrycontent1">
+                          <span class="main-page-text24">
+                            <span>{{ entry.content }}</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          function startSpeechToText() {
+              // Disable the textarea while speech recognition is in progress
+              document.querySelector('textarea[name="content"]').disabled = true;
+      
+              // Send a POST request to the /speech_to_text route
+              fetch('/speech_to_text', {
+                  method: 'POST',
+              })
+              .then(response => response.json())
+              .then(data => {
+                  if (data.error) {
+                      // If there's an error, display a pop-up message
+                      alert("Speech recognition error: " + data.error);
+                  } else {
+                      // Set the recognized speech as the content in the textarea
+                      document.querySelector('textarea[name="content"]').value = data.content;
+                  }
+      
+                  // Re-enable the textarea
+                  document.querySelector('textarea[name="content"]').disabled = false;
+              })
+              .catch(error => console.error('Error:', error));
+          }
+        </script>
+
+      </div>
+    </div>
+  </body>
+</html>
