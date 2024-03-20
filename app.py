@@ -75,8 +75,8 @@ def login_to_index():
 
 @app.route('/main')
 def index2():
-    return render_template('index.html', user_entries=user_entries, emotion_patterns = emotion_patterns)
-    #return render_template('index2.html', user_entries=user_entries)
+    #return render_template('index.html', user_entries=user_entries, emotion_patterns = emotion_patterns)
+    return render_template('index2.html', user_entries=user_entries)
 
 @app.route('/add_entry', methods=['POST'])
 def add_entry():
