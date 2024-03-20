@@ -11,10 +11,15 @@ app.secret_key = 'your_secret_key_here'
 tokenizer = RobertaTokenizerFast.from_pretrained("arpanghoshal/EmoRoBERTa")
 model = TFRobertaForSequenceClassification.from_pretrained("arpanghoshal/EmoRoBERTa")
 
+POSITIVE_EMOTION_TEXT = "positive"
+NEGATIVE_EMOTION_TEXT = "negative"
 positive_emotion = ["joy", "admiration", "amusement", "caring", "excitement", "gratitude", "love", "relief", "surprise", "curiosity"]
 negative_emotion = ["anger", "fear", "disgust", "sadness", "nervousness", "pride", "grief", "annoyance", "confusion", "desire", "disappointment"]
 emotion = pipeline('sentiment-analysis', model='arpanghoshal/EmoRoBERTa')
-
+#ref https://www.verywellmind.com/how-to-be-more-positive-6499974
+positive_methods = ["Make a gratitude journal where you write the things you are thankful of", "Look for an activity you are looking forward to", "Practice smiling to boost your mood", "Positive self-talk"]
+#ref https://www.verywellmind.com/how-should-i-deal-with-negative-emotions-3144603
+negative_methods = ["Understand your emotions", "Change what you can like your thought patterns", "Find an outlet or a hobby", "Learn to accept yourself"]
 user_entries = []
 #if user feels a specific emotion for 3 consecutive days, it will be stored here
 emotion_patterns = ""
@@ -52,10 +57,10 @@ def check_for_emotion_patterns():
             if i == 5:
                 if positive_counter >= 3:
                     #weekly_emotion = "positive"
-                    emotion_patterns = "positive"
+                    emotion_patterns = POSITIVE_EMOTION_TEXT
                 elif negative_counter >= 3:
                     #weekly_emotion = "negative"
-                    emotion_patterns = "negative"
+                    emotion_patterns = NEGATIVE_EMOTION_TEXT
                 
                 positive_counter = 0
                 negative_counter = 0
@@ -75,8 +80,12 @@ def login_to_index():
 
 @app.route('/main')
 def index2():
-    #return render_template('index.html', user_entries=user_entries, emotion_patterns = emotion_patterns)
-    return render_template('index2.html', user_entries=user_entries)
+    '''
+        if emotion_patterns == POSITIVE_EMOTION_TEXT:
+        return render_template('index.html', user_entries=user_entries, emotion_patterns = emotion_patterns, emotion_methods = positive_methods)
+    return render_template('index.html', user_entries=user_entries, emotion_patterns = emotion_patterns, emotion_methods = negative_methods)
+    '''
+    return render_template('index2.html', user_entries=user_entries, emotion_patterns = emotion_patterns, emotion_methods = positive_methods)
 
 @app.route('/add_entry', methods=['POST'])
 def add_entry():

@@ -65,21 +65,21 @@
             {% endif %}
             -->
             {% if emotion_patterns != "" %}
-            <div class="justify-content-between">
-                You have been feeling {{emotion_patterns}} in your 3 recent entries.<br>
-                <a data-toggle="collapse" href="#emotion_pattern_collapse" role="button" aria-expanded="false" aria-controls="emotion_pattern_collapse">
-                     Here are a few things that might help you:
-                </a>
-             </div>
-            <div class="collapse" id="emotion_pattern_collapse">
-                <div class="card card-body">   
-                    <ul class="list-group">
-                        <li class="list-group-item"> Meditate </li>
-                        <li class="list-group-item"> Talk with a friend </li>
-                        <li class="list-group-item"> Take a break </li>
-                    </ul>
+                <div class="justify-content-between">
+                    You have been feeling {{emotion_patterns}} in your recent entries.<br>
+                    <a data-toggle="collapse" href="#emotion_pattern_collapse" role="button" aria-expanded="false" aria-controls="emotion_pattern_collapse">
+                        Here are a few things that might help you:
+                    </a>
                 </div>
-            </div>
+                <div class="collapse" id="emotion_pattern_collapse">
+                    <div class="card card-body">   
+                        <ul class="list-group">
+                            {% for method in emotion_methods %}
+                            <li class="list-group-item"> {{method}} </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
             {% endif %}
             </ul>
             <h4>Diary Entries</h4>

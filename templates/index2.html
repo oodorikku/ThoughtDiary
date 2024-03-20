@@ -59,6 +59,7 @@
       <div class="main-page-container">
         <div name="popup" class="forpopups-container">
           <div class="forpopups-forpopups">
+            {% if emotion_patterns == "" %}
             <div class="forpopups-alertpopup">
               <span class="forpopups-text">Alert&nbsp; ⚠</span>
               <img
@@ -197,7 +198,6 @@
                         <button type="button" onclick="showMoreDetails({{entry}})" class="main-page-moredetailbtn"><span class="main-page-text08" >More Details</span></button>
                       </div>
                     </div>
-
                   {% endfor %}
                 </div>
               </div>
