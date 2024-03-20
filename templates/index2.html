@@ -57,6 +57,56 @@
       <link href="{{ url_for('static', filename='index2.css') }}" rel="stylesheet" />
 
       <div class="main-page-container">
+        <div name="popup" class="forpopups-container">
+          <div class="forpopups-forpopups">
+            <div class="forpopups-alertpopup">
+              <span class="forpopups-text">Alert&nbsp; ⚠</span>
+              <img
+                src="{{ url_for('static', filename='external/close1764-kbvo.svg') }}"
+                alt="close1764"
+                class="forpopups-close"
+              />
+              <div class="forpopups-recommendation">
+                <span class="forpopups-text01">
+                  <span>
+                    You have been feeling sadness for 3 consecutive days
+                  </span>
+                </span>
+                <span class="forpopups-text03">
+                  <span>Here are a few things that might help you:</span>
+                </span>
+                <ul class="forpopups-ulactions">
+                  <il class="forpopups-text05"><span>Meditation</span></il>
+                  <il class="forpopups-text07"><span>Talk with a friend</span></il>
+                  <il class="forpopups-text09"><span>Take a break</span></il>
+                </ul>
+              </div>
+            </div>
+            <div name="popup-moredetails" class="forpopups-entrydetailpopup">
+              <span class="forpopups-text11"><span name="popup-title"></span></span>
+              <img
+                src="{{ url_for('static', filename='external/close1764-e709.svg') }}"
+                alt="close1764"
+                class="forpopups-close1"
+                onclick="closeMoreDetails()"
+              />
+              <div class="forpopups-moredetailscontent">
+                <span class="forpopups-text13"><span>Date:</span></span>
+                <span class="forpopups-text15"><span name="popup-date"></span></span>
+                <span class="forpopups-text13"><span>Emotion:</span></span>
+                <span class="forpopups-text15"><span name="popup-emotion"></span></span>
+                <span class="forpopups-text17"><span>Content:</span></span>
+                <div class="forpopups-fullcontent">
+                  <span class="forpopups-text19">
+                    <span name="popup-content">
+                      
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="main-page-main-page">
           <div class="main-page-topbanner">
             <img
@@ -144,42 +194,60 @@
                             <span>{{ entry.content }}</span>
                           </span>
                         </div>
+                        <button type="button" onclick="showMoreDetails({{entry}})" class="main-page-moredetailbtn"><span class="main-page-text08" >More Details</span></button>
                       </div>
                     </div>
+
                   {% endfor %}
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <script>
-          function startSpeechToText() {
-              // Disable the textarea while speech recognition is in progress
-              document.querySelector('textarea[name="content"]').disabled = true;
-      
-              // Send a POST request to the /speech_to_text route
-              fetch('/speech_to_text', {
-                  method: 'POST',
-              })
-              .then(response => response.json())
-              .then(data => {
-                  if (data.error) {
-                      // If there's an error, display a pop-up message
-                      alert("Speech recognition error: " + data.error);
-                  } else {
-                      // Set the recognized speech as the content in the textarea
-                      document.querySelector('textarea[name="content"]').value = data.content;
-                  }
-      
-                  // Re-enable the textarea
-                  document.querySelector('textarea[name="content"]').disabled = false;
-              })
-              .catch(error => console.error('Error:', error));
-          }
-        </script>
-
       </div>
     </div>
+
+    <script>
+      function startSpeechToText() {
+          // Disable the textarea while speech recognition is in progress
+          document.querySelector('textarea[name="content"]').disabled = true;
+  
+          // Send a POST request to the /speech_to_text route
+          fetch('/speech_to_text', {
+              method: 'POST',
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.error) {
+                  // If there's an error, display a pop-up message
+                  alert("Speech recognition error: " + data.error);
+              } else {
+                  // Set the recognized speech as the content in the textarea
+                  document.querySelector('textarea[name="content"]').value = data.content;
+              }
+  
+              // Re-enable the textarea
+              document.querySelector('textarea[name="content"]').disabled = false;
+          })
+          .catch(error => console.error('Error:', error));
+      }
+
+      function showMoreDetails(entry) {
+        document.querySelector('div[name="popup"]').setAttribute('style', 'visibility: visible;')
+        document.querySelector('div[name="popup-moredetails"]').setAttribute('style', 'visibility: visible;')
+        document.querySelector('span[name="popup-title"]').innerHTML = entry.title
+        document.querySelector('span[name="popup-date"]').innerHTML = entry.date
+        document.querySelector('span[name="popup-emotion"]').innerHTML = entry.emotion
+        document.querySelector('span[name="popup-content"]').innerHTML = entry.content
+      }
+
+      function closeMoreDetails() {
+        document.querySelector('div[name="popup"]').setAttribute('style', 'visibility: hidden;')
+        document.querySelector('div[name="popup-moredetails"]').setAttribute('style', 'visibility: hidden;')
+      }
+
+    </script>
+    
+
   </body>
 </html>
