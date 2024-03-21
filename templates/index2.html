@@ -59,7 +59,6 @@
       <div class="main-page-container">
         <div name="popup" class="forpopups-container">
           <div class="forpopups-forpopups">
-            {% if emotion_patterns == "" %}
             <div class="forpopups-alertpopup">
               <span class="forpopups-text">Alert&nbsp; ⚠</span>
               <img
@@ -77,9 +76,15 @@
                   <span>Here are a few things that might help you:</span>
                 </span>
                 <ul class="forpopups-ulactions">
-                  <il class="forpopups-text05"><span>Meditation</span></il>
+                  {% for method in emotion_methods %}
+                  <il class="forpopups-text05"><span> {{method}} </span></il>
+                  {% endfor %}
+                  <!---
+                                   <il class="forpopups-text05"><span>Meditation</span></il>
                   <il class="forpopups-text07"><span>Talk with a friend</span></il>
-                  <il class="forpopups-text09"><span>Take a break</span></il>
+                  <il class="forpopups-text09"><span>Take a break</span></il> 
+                  -->
+
                 </ul>
               </div>
             </div>
@@ -169,6 +174,23 @@
               </form>
             </div>
             <div class="main-page-rightside">
+              {% if emotion_patterns != "" %}
+          <div class="justify-content-between">
+            You have been feeling {{emotion_patterns}} in your recent entries.<br>
+              <a data-toggle="collapse" href="#emotion_pattern_collapse" role="button" aria-expanded="false" aria-controls="emotion_pattern_collapse">
+                  Here are a few things that might help you:
+              </a>
+          </div>
+          <div class="collapse" id="emotion_pattern_collapse">
+              <div class="card card-body">   
+                  <ul class="list-group">
+                      {% for method in emotion_methods %}
+                      <li class="list-group-item"> {{method}} </li>
+                      {% endfor %}
+                  </ul>
+              </div>
+          </div>
+          {% endif %}
               <div class="main-page-diaryentries">
                 <span class="main-page-text12"><span>Diary Entries</span></span>
                 <div class="main-page-entriescontainer">

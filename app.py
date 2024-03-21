@@ -85,8 +85,10 @@ def index2():
         return render_template('index.html', user_entries=user_entries, emotion_patterns = emotion_patterns, emotion_methods = positive_methods)
     return render_template('index.html', user_entries=user_entries, emotion_patterns = emotion_patterns, emotion_methods = negative_methods)
     '''
-    return render_template('index2.html', user_entries=user_entries, emotion_patterns = emotion_patterns, emotion_methods = positive_methods)
-
+    if emotion_patterns == POSITIVE_EMOTION_TEXT:
+        return render_template('index2.html', user_entries=user_entries, emotion_patterns = emotion_patterns, emotion_methods = positive_methods)
+    return render_template('index2.html', user_entries=user_entries, emotion_patterns = emotion_patterns, emotion_methods = negative_methods)
+    
 @app.route('/add_entry', methods=['POST'])
 def add_entry():
     global user_entries
