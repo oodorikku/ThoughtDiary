@@ -8,5 +8,5 @@ Before running app.py:
 - Inside the terminal/command prompt, input `pip install -r requirements.txt`
 - Run `app.py`
 
-- You can click the link that can be seen on your terminal after it finishes loading (1st option)
+- You will see: `Running on http://127.0.0.1:5000` in your terminal once it is running, click on it and wait for it to load (1st option)
   - Open your browser and type http://127.0.0.1:5000 (2nd option)
