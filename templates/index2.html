@@ -63,19 +63,15 @@
               {% with messages = get_flashed_messages() %}
               {% if messages %}
                   <script>
-                          alert("{{ messages[0] }}");
+                    document.addEventListener("DOMContentLoaded", function() {
+                      alert("{{ messages[0] }}");
+                    });
                   </script>
               {% endif %}
           {% endwith %}
-              <span class="forpopups-text">Alert&nbsp; ⚠</span>
-              <img
-                src="{{ url_for('static', filename='external/close1764-kbvo.svg') }}"
-                alt="close1764"
-                class="forpopups-close"
-                onclick="closeRecommendations()"
-              />
               <div class="forpopups-recommendation">
                 <span class="forpopups-text01">
+                  {% if emotion_patterns != "" %}
                   <span>
                     You have been feeling {{emotion_patterns}} in your recent entries
                   </span>
@@ -92,8 +88,8 @@
                   <il class="forpopups-text07"><span>Talk with a friend</span></il>
                   <il class="forpopups-text09"><span>Take a break</span></il> 
                   -->
-
                 </ul>
+                {% endif %}
               </div>
             </div>
             <div name="popup-moredetails" class="forpopups-entrydetailpopup">
