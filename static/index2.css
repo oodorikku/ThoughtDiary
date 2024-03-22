@@ -224,7 +224,10 @@
   align-items: flex-start;
   flex-shrink: 0;
   border-radius: 15.793243408203125px;
-  background-color: rgba(145, 209, 229, 1);
+  background-color: rgba(0, 160, 107, 1);
+}
+.main-page-button-submit:hover{
+    cursor: pointer;
 }
 .main-page-text08 {
   color: rgba(255, 255, 255, 1);
@@ -250,6 +253,9 @@
   flex-shrink: 0;
   border-radius: 15.793243408203125px;
   background-color: rgba(70, 138, 157, 1);
+}
+.main-page-buttonspeechtotext:hover{
+    cursor: pointer;
 }
 .main-page-text10 {
   color: rgba(255, 255, 255, 1);
