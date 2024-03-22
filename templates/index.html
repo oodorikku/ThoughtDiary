@@ -30,14 +30,6 @@
     </div>
 
     <div class="container mt-5">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <div class="alert alert-danger" role="alert">
-                    {{ messages[0] }}
-                </div>
-            {% endif %}
-        {% endwith %}
-
         <form method="post" action="{{ url_for('add_entry') }}">
             <div class="form-group">
                 <label for="date" class="date-label">Select a date:</label>

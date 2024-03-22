@@ -60,6 +60,13 @@
         <div name="popup" class="forpopups-container">
           <div class="forpopups-forpopups">
             <div class="forpopups-alertpopup">
+              {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                  <script>
+                          alert("{{ messages[0] }}");
+                  </script>
+              {% endif %}
+          {% endwith %}
               <span class="forpopups-text">Alert&nbsp; ⚠</span>
               <img
                 src="{{ url_for('static', filename='external/close1764-kbvo.svg') }}"
