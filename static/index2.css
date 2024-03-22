@@ -209,7 +209,7 @@
 }
 .main-page-conbtns {
   gap: 8.686284065246582px;
-  width: 177.67398071289062px;
+  width: 140;
   display: flex;
   align-items: center;
   flex-shrink: 0;
@@ -244,7 +244,7 @@
   text-decoration: none;
 }
 .main-page-buttonspeechtotext {
-  width: 109.7630386352539px;
+  width: 50;
   height: 28.427837371826172px;
   display: flex;
   overflow: hidden;
@@ -254,6 +254,11 @@
   border-radius: 15.793243408203125px;
   background-color: rgba(70, 138, 157, 1);
 }
+
+.main-page-text10 i {
+  font-size: 16px; 
+}
+
 .main-page-buttonspeechtotext:hover {
   cursor: pointer;
 }
