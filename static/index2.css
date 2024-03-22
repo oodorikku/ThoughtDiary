@@ -982,10 +982,10 @@
   height: 100%;
   position: absolute;
   font-size: 20px;
-  font-style: Bold;
+  font-style: normal;
   text-align: left;
-  font-family: Rounded Mplus 1c Bold;
-  font-weight: 700;
+  font-family: Rounded Mplus 1c;
+  font-weight: normal;
   line-height: normal;
   font-stretch: normal;
   text-decoration: none;
