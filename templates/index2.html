@@ -59,7 +59,7 @@
       <div class="main-page-container">
         <div name="popup" class="forpopups-container">
           <div class="forpopups-forpopups">
-            <div class="forpopups-alertpopup">
+            <div name="popup-recommendations" class="forpopups-alertpopup">
               {% with messages = get_flashed_messages() %}
               {% if messages %}
                   <script>
@@ -72,11 +72,12 @@
                 src="{{ url_for('static', filename='external/close1764-kbvo.svg') }}"
                 alt="close1764"
                 class="forpopups-close"
+                onclick="closeRecommendations()"
               />
               <div class="forpopups-recommendation">
                 <span class="forpopups-text01">
                   <span>
-                    You have been feeling sadness for 3 consecutive days
+                    You have been feeling {{emotion_patterns}} in your recent entries
                   </span>
                 </span>
                 <span class="forpopups-text03">
@@ -182,7 +183,7 @@
             </div>
             <div class="main-page-rightside">
               {% if emotion_patterns != "" %}
-          <div class="justify-content-between">
+          <!-- <div class="justify-content-between">
             You have been feeling {{emotion_patterns}} in your recent entries.<br>
               <a data-toggle="collapse" href="#emotion_pattern_collapse" role="button" aria-expanded="false" aria-controls="emotion_pattern_collapse">
                   Here are a few things that might help you:
@@ -196,7 +197,10 @@
                       {% endfor %}
                   </ul>
               </div>
-          </div>
+          </div> -->
+          <button type="button" onclick="showRecommendations()" class="main-page-show-recommendations-button">
+            <span class="main-page-text08"><span>Show Recommendations</span></span>
+          </button>
           {% endif %}
               <div class="main-page-diaryentries">
                 <span class="main-page-text12"><span>Diary Entries</span></span>
@@ -270,9 +274,19 @@
         document.querySelector('span[name="popup-content"]').innerHTML = entry.content
       }
 
+      function showRecommendations() {
+        document.querySelector('div[name="popup"]').setAttribute('style', 'visibility: visible;')
+        document.querySelector('div[name="popup-recommendations"]').setAttribute('style', 'visibility: visible;')
+      }
+
       function closeMoreDetails() {
         document.querySelector('div[name="popup"]').setAttribute('style', 'visibility: hidden;')
         document.querySelector('div[name="popup-moredetails"]').setAttribute('style', 'visibility: hidden;')
+      }
+
+      function closeRecommendations() {
+        document.querySelector('div[name="popup"]').setAttribute('style', 'visibility: hidden;')
+        document.querySelector('div[name="popup-recommendations"]').setAttribute('style', 'visibility: hidden;')
       }
 
     </script>

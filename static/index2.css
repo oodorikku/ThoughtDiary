@@ -226,8 +226,8 @@
   border-radius: 15.793243408203125px;
   background-color: rgba(0, 160, 107, 1);
 }
-.main-page-button-submit:hover{
-    cursor: pointer;
+.main-page-button-submit:hover {
+  cursor: pointer;
 }
 .main-page-text08 {
   color: rgba(255, 255, 255, 1);
@@ -254,8 +254,8 @@
   border-radius: 15.793243408203125px;
   background-color: rgba(70, 138, 157, 1);
 }
-.main-page-buttonspeechtotext:hover{
-    cursor: pointer;
+.main-page-buttonspeechtotext:hover {
+  cursor: pointer;
 }
 .main-page-text10 {
   color: rgba(255, 255, 255, 1);
@@ -291,6 +291,7 @@
   flex-shrink: 0;
   flex-direction: column;
   justify-content: space-between;
+  /* padding-bottom: 100px; */
 }
 .main-page-text12 {
   color: rgba(28, 63, 73, 1);
@@ -690,6 +691,7 @@
 
 .forpopups-container {
   width: 100%;
+  height: 100%;
   display: flex;
   overflow: auto;
   min-height: 100vh;
@@ -807,12 +809,13 @@
   flex-shrink: 0;
   justify-content: flex-start;
   margin-top: 10px;
+  flex-direction: row;
 }
 .forpopups-text05 {
   color: rgba(70, 138, 157, 1);
   width: 858px;
   height: auto;
-  position: absolute;
+  flex: 1;
   font-size: 20px;
   font-style: Bold;
   text-align: left;
@@ -994,4 +997,21 @@
   border-radius: 15.793243408203125px;
   background-color: rgb(194, 54, 70);
   margin-left: 10px;
+}
+
+.main-page-show-recommendations-button {
+  width: 300px;
+  height: 28.427837371826172px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-radius: 15.793243408203125px;
+  background-color: rgb(187, 53, 33);
+  /* margin-top: 30px;
+  margin-bottom: 30px; */
+}
+.main-page-show-recommendations-button:hover {
+  cursor: pointer;
 }
